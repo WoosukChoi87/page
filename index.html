@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI Science Lab | Prof. Woosuk Choi — Sejong University</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b211d;
+    --bg-panel:#12332c;
+    --bg-panel2:#173d34;
+    --line:#2a4f44;
+    --text:#eaf3ef;
+    --muted:#9bbab0;
+    --gold:#5fb0e6;
+    --coral:#4fdb92;
+    --grad: linear-gradient(120deg,#5fb0e6,#4fdb92);
+    box-sizing:border-box;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top: env(safe-area-inset-top,0px);}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Inter',sans-serif; line-height:1.6;
+    padding-top: env(safe-area-inset-top,0px);
+    padding-bottom: env(safe-area-inset-bottom,0px);
+    background-image:
+      radial-gradient(circle at 10% 4%, rgba(95,176,230,.14), transparent 44%),
+      radial-gradient(circle at 90% 20%, rgba(79,219,146,.14), transparent 48%);
+  }
+  h1,h2,h3,.disp{font-family:'Fraunces',serif;}
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+  nav{
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:50;
+    background:rgba(11,33,29,.88); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .brand{font-family:'Fraunces'; font-weight:700; font-size:18px; letter-spacing:.2px;}
+  .brand em{font-style:normal; color:var(--gold);}
+  nav ul{list-style:none; display:none; gap:26px; margin:0; padding:0; font-size:14px; color:var(--muted);}
+  nav ul a:hover{color:var(--text);}
+  @media(min-width:760px){nav ul{display:flex;}}
+
+  /* HERO */
+  .hero{position:relative; overflow:hidden; padding:88px 0 76px; border-bottom:1px solid var(--line);}
+  .hero svg.sun{position:absolute; inset:0; width:100%; height:100%; opacity:.65; pointer-events:none;}
+  .hero-inner{position:relative; z-index:2;}
+  .notice{display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); background:var(--bg-panel); border-radius:100px; padding:7px 16px; font-size:13px; color:var(--coral); margin-bottom:26px;}
+  .notice .dot{width:6px; height:6px; border-radius:50%; background:var(--coral);}
+  .hero h1{font-size:clamp(32px,5vw,52px); line-height:1.14; font-weight:600; margin:0 0 20px; max-width:760px;}
+  .hero h1 em{font-style:normal; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero p{color:var(--muted); font-size:16.5px; max-width:600px; margin:0 0 32px;}
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:8px; font-size:14px; font-weight:600; text-decoration:none;}
+  .btn-primary{background:var(--grad); color:#06120f;}
+  .btn-ghost{border:1px solid var(--line); color:var(--text);}
+
+  section{padding:72px 0;}
+  section + section{border-top:1px solid var(--line);}
+  .section-head{margin-bottom:40px; max-width:660px;}
+  .section-head .tag{color:var(--gold); font-size:13px; margin-bottom:10px;}
+  .section-head h2{font-size:clamp(25px,3.2vw,32px); margin:0 0 12px; font-weight:600;}
+  .section-head p{color:var(--muted); font-size:15.5px; margin:0;}
+
+  /* ABOUT / RESEARCH */
+  .research-grid{display:grid; grid-template-columns:1fr; gap:14px; margin-top:8px;}
+  @media(min-width:700px){.research-grid{grid-template-columns:repeat(2,1fr);}}
+  .r-card{background:var(--bg-panel); border:1px solid var(--line); border-radius:12px; padding:22px; display:flex; gap:18px; align-items:flex-start;}
+  .r-icon{flex:0 0 auto; width:56px; height:56px;}
+  .r-card h4{margin:6px 0 0; font-size:15px; font-weight:600; line-height:1.4;}
+
+  /* PROFESSOR */
+  .prof-card{display:grid; grid-template-columns:140px 1fr; gap:26px; background:var(--bg-panel); border:1px solid var(--line); border-radius:14px; padding:26px; align-items:start;}
+  @media(max-width:560px){.prof-card{grid-template-columns:1fr;}}
+  .avatar{width:100%; aspect-ratio:1; border-radius:12px; background:var(--grad); display:flex; align-items:center; justify-content:center; font-family:'Fraunces'; font-weight:700; font-size:32px; color:#06120f;}
+  .prof-card h3{margin:0 0 4px; font-size:20px;}
+  .prof-card .role{color:var(--gold); font-size:13px; margin-bottom:14px;}
+  .prof-card dl{margin:0 0 16px; font-size:14px; color:var(--muted); display:grid; grid-template-columns:auto 1fr; gap:4px 12px;}
+  .prof-card dt{color:#7fa89c;}
+  .career{margin-top:18px;}
+  .career h5{margin:0 0 8px; font-size:13px; color:var(--gold); font-weight:600;}
+  .career ul{margin:0 0 16px; padding-left:18px; color:var(--muted); font-size:13.5px;}
+  .career li{margin-bottom:4px;}
+
+  /* MEMBERS */
+  .member-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:24px;}
+  @media(min-width:640px){.member-grid{grid-template-columns:repeat(3,1fr);}}
+  @media(min-width:900px){.member-grid{grid-template-columns:repeat(4,1fr);}}
+  .m-card{background:var(--bg-panel); border:1px solid var(--line); border-radius:12px; padding:18px;}
+  .m-avatar{width:44px; height:44px; border-radius:10px; background:var(--bg-panel2); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--gold); font-family:'Fraunces'; font-weight:600; margin-bottom:12px; font-size:16px;}
+  .m-card h4{margin:0 0 3px; font-size:14.5px;}
+  .m-card .focus{font-size:12.5px; color:var(--muted); line-height:1.4;}
+  .m-group-title{font-family:'Fraunces'; font-size:14px; color:var(--muted); margin:34px 0 0; letter-spacing:.02em;}
+
+  /* PUBLICATIONS */
+  .pub-year{margin-top:34px;}
+  .pub-year h4{font-family:'Fraunces'; font-size:16px; color:var(--gold); margin:0 0 14px; font-weight:600;}
+  .pub{padding:14px 0; border-bottom:1px solid var(--line); font-size:14px; color:var(--muted);}
+  .pub b{color:var(--text); font-weight:500;}
+  .pub .venue{color:#7fa89c;}
+  .more-note{margin-top:26px; font-size:13.5px; color:var(--muted);}
+  .more-note a{color:var(--gold); text-decoration:underline;}
+
+  /* GALLERY */
+  .gallery{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:28px;}
+  @media(min-width:700px){.gallery{grid-template-columns:repeat(3,1fr);}}
+  .g-tile{position:relative; aspect-ratio:4/3; border-radius:12px; border:1px solid var(--line); overflow:hidden; display:flex; align-items:flex-end; padding:14px; font-size:12.5px; color:var(--muted); background:var(--bg-panel);}
+  .g-tile span{position:relative; z-index:2;}
+
+  footer{padding:46px 0 56px; color:var(--muted); font-size:13.5px;}
+  footer .top{display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; border-top:1px solid var(--line); padding-top:24px;}
+  footer a{color:var(--gold);}
+
+  .note{margin-top:14px; font-size:12.5px; color:#7fa89c; border:1px dashed var(--line); border-radius:8px; padding:10px 14px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">AI SCIENCE <em>LAB</em></div>
+    <ul>
+      <li><a href="#about">Research</a></li>
+      <li><a href="#members">Member</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#gallery">Photo</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <svg class="sun" viewBox="0 0 1080 420" preserveAspectRatio="xMidYMid slice">
+    <g fill="none" stroke="#1f4038" stroke-width="1">
+      <circle cx="900" cy="60" r="60"/>
+      <circle cx="900" cy="60" r="110"/>
+      <circle cx="900" cy="60" r="165"/>
+    </g>
+    <g stroke="var(--gold)" stroke-width="1.4" opacity=".5">
+      <path d="M60 320 Q 220 260 380 300 T 700 280"/>
+      <path d="M60 360 Q 240 300 420 340 T 760 320"/>
+    </g>
+    <g fill="var(--coral)">
+      <circle cx="380" cy="300" r="3.5"/><circle cx="700" cy="280" r="3"/><circle cx="420" cy="340" r="3"/><circle cx="760" cy="320" r="3.5"/>
+    </g>
+  </svg>
+  <div class="wrap hero-inner">
+    <div class="notice"><span class="dot"></span>We are looking for self-motivated postdocs and passionate students to join our team.</div>
+    <h1>데이터로 자연과 사회의<br><em>새로운 통찰</em>을 찾습니다.</h1>
+    <p>AIS Lab은 수치모델과 인공지능을 결합해 미래의 문제를 데이터 기반으로 해결하는 연구실입니다. 태양광·풍력 예측부터 대기질, 태풍, 도시 기후까지 — 자연·사회 현상의 새로운 가치를 탐구합니다.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#publications">Publications</a>
+      <a class="btn btn-ghost" href="#contact">Contact Us</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">RESEARCH</div>
+      <h2>Solar & Wind Power Forecasting using Numerical Simulation and AI</h2>
+      <p>수치 시뮬레이션과 인공지능을 융합해 에너지·기후·대기환경 전반의 미래를 예측하고 대응 전략을 설계합니다.</p>
+    </div>
+    <div class="research-grid">
+      <div class="r-card">
+        <svg class="r-icon" viewBox="0 0 64 64" fill="none">
+          <circle cx="18" cy="18" r="8" stroke="var(--coral)" stroke-width="2.2"/>
+          <g stroke="var(--coral)" stroke-width="2.2" stroke-linecap="round">
+            <line x1="18" y1="4" x2="18" y2="8"/><line x1="18" y1="28" x2="18" y2="32"/>
+            <line x1="4" y1="18" x2="8" y2="18"/><line x1="28" y1="18" x2="32" y2="18"/>
+            <line x1="8.5" y1="8.5" x2="11" y2="11"/><line x1="25" y1="25" x2="27.5" y2="27.5"/>
+          </g>
+          <g stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round">
+            <line x1="46" y1="60" x2="46" y2="28"/><line x1="46" y1="28" x2="58" y2="20"/>
+            <line x1="46" y1="28" x2="36" y2="16"/><line x1="46" y1="28" x2="52" y2="42"/>
+          </g>
+        </svg>
+        <h4>Solar & Wind Power Forecasting using Numerical Simulation and AI</h4>
+      </div>
+
+      <div class="r-card">
+        <svg class="r-icon" viewBox="0 0 64 64" fill="none">
+          <g stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="14" y="30" width="14" height="24" rx="1"/><line x1="14" y1="38" x2="28" y2="38"/>
+          </g>
+          <path d="M18 26 Q22 20 18 14 Q26 16 24 8" stroke="var(--coral)" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+          <g stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round" fill="none">
+            <path d="M40 52 A12 12 0 1 1 60 44"/><line x1="50" y1="52" x2="56" y2="44"/>
+          </g>
+        </svg>
+        <h4>Carbon Emission Monitoring</h4>
+      </div>
+
+      <div class="r-card">
+        <svg class="r-icon" viewBox="0 0 64 64" fill="none">
+          <g stroke="var(--gold)" stroke-width="2" fill="none">
+            <ellipse cx="32" cy="32" rx="26" ry="10" transform="rotate(20 32 32)"/>
+            <ellipse cx="32" cy="32" rx="26" ry="10" transform="rotate(-20 32 32)"/>
+            <ellipse cx="32" cy="32" rx="26" ry="10" transform="rotate(90 32 32)"/>
+          </g>
+          <circle cx="32" cy="32" r="5" fill="var(--coral)"/>
+          <circle cx="10" cy="24" r="2.4" fill="var(--gold)"/><circle cx="54" cy="40" r="2.4" fill="var(--gold)"/>
+        </svg>
+        <h4>Development of Multimodal Physics-Informed AI Models</h4>
+      </div>
+
+      <div class="r-card">
+        <svg class="r-icon" viewBox="0 0 64 64" fill="none">
+          <path d="M32 32 C40 28 44 20 36 16 C24 10 12 20 16 32 C20 46 38 50 48 40 C56 32 52 18 40 14" stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+          <circle cx="32" cy="32" r="3" fill="var(--coral)"/>
+        </svg>
+        <h4>Tropical Cyclone Prediction using Deep Learning</h4>
+      </div>
+
+      <div class="r-card">
+        <svg class="r-icon" viewBox="0 0 64 64" fill="none">
+          <path d="M22 52 C10 44 12 30 20 22 C18 30 24 30 24 24 C24 16 30 12 30 12 C28 20 34 22 36 16 C40 26 40 40 30 48 C26 50 22 52 22 52Z" stroke="var(--coral)" stroke-width="2" stroke-linejoin="round" fill="none"/>
+          <path d="M40 46 Q48 38 46 26" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 3" fill="none"/>
+          <path d="M46 10 C40 10 36 14 36 20 C36 26 46 34 46 34 C46 34 56 26 56 20 C56 14 52 10 46 10Z" stroke="var(--gold)" stroke-width="2" fill="none"/>
+          <circle cx="46" cy="20" r="3" fill="var(--gold)"/>
+        </svg>
+        <h4>4D Emission Source Back-Tracking System (Air Pollution and Wildfire)</h4>
+      </div>
+
+      <div class="r-card">
+        <svg class="r-icon" viewBox="0 0 64 64" fill="none">
+          <g stroke="var(--gold)" stroke-width="2.2" stroke-linecap="round">
+            <line x1="16" y1="20" x2="32" y2="12"/><line x1="32" y1="12" x2="48" y2="20"/>
+            <line x1="16" y1="20" x2="32" y2="28"/><line x1="48" y1="20" x2="32" y2="28"/>
+          </g>
+          <circle cx="16" cy="20" r="4" fill="var(--coral)"/><circle cx="32" cy="12" r="4" fill="var(--coral)"/>
+          <circle cx="48" cy="20" r="4" fill="var(--coral)"/><circle cx="32" cy="28" r="4" fill="var(--coral)"/>
+          <g stroke="var(--gold)" stroke-width="2" stroke-linecap="round">
+            <path d="M14 42 H50"/><path d="M44 36 L50 42 L44 48"/>
+          </g>
+        </svg>
+        <h4>Hybrid of Chemical Transport Model and AI</h4>
+      </div>
+
+      <div class="r-card">
+        <svg class="r-icon" viewBox="0 0 64 64" fill="none">
+          <g stroke="var(--gold)" stroke-width="2.2" stroke-linejoin="round">
+            <rect x="8" y="34" width="10" height="24"/><rect x="22" y="22" width="10" height="36"/><rect x="36" y="30" width="10" height="28"/>
+          </g>
+          <g stroke="var(--coral)" stroke-width="2.2" stroke-linecap="round">
+            <line x1="55" y1="14" x2="55" y2="40"/><circle cx="55" cy="46" r="5"/>
+          </g>
+        </svg>
+        <h4>Urban Microclimate Data-Driven Smart City Management System</h4>
+      </div>
+
+      <div class="r-card">
+        <svg class="r-icon" viewBox="0 0 64 64" fill="none">
+          <path d="M32 8 L52 16 V30 C52 44 42 54 32 58 C22 54 12 44 12 30 V16 Z" stroke="var(--gold)" stroke-width="2.2" stroke-linejoin="round" fill="none"/>
+          <path d="M24 34 C24 26 32 22 38 22 C38 30 32 36 24 34Z" stroke="var(--coral)" stroke-width="2" stroke-linejoin="round" fill="none"/>
+          <line x1="24" y1="42" x2="34" y2="30" stroke="var(--coral)" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h4>ESG Management (Physical Risk Assessment) and Resilience Strategy</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="members">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">MEMBER</div>
+      <h2>Professor & Students</h2>
+      <p>기후·에너지·AI를 아우르는 다양한 배경의 연구자들이 함께합니다.</p>
+    </div>
+
+    <div class="prof-card">
+      <div class="avatar">WC</div>
+      <div>
+        <h3>Woosuk Choi, Ph.D.</h3>
+        <div class="role">Associate Professor, Dept. of Artificial Intelligence and Data Science, Sejong University</div>
+        <dl>
+          <dt>Office</dt><dd>Daeyang AI Center 806</dd>
+          <dt>Tel.</dt><dd>+82-2-3408-1947</dd>
+          <dt>E-mail</dt><dd>wschoi@sejong.ac.kr</dd>
+        </dl>
+        <div class="career">
+          <h5>Work Career</h5>
+          <ul>
+            <li>2025.03 – present: Associate Professor, Sejong University</li>
+            <li>2022.03 – 2025.02: Assistant Professor, Sejong University</li>
+            <li>2021.03 – 2022.02: Assistant Professor, University of Suwon</li>
+            <li>2018.09 – 2021.02: Senior Researcher, Seoul Institute of Technology</li>
+            <li>2017.09 – 2018.09: Post-Doctoral Researcher, Seoul National University</li>
+          </ul>
+          <h5>Education</h5>
+          <ul>
+            <li>2010.03 – 2017.08: Ph.D., Earth and Environmental Sciences, Seoul National University</li>
+            <li>2006.03 – 2010.02: B.S., Earth and Environmental Sciences, Seoul National University</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="m-group-title">Ph.D. Course</div>
+    <div class="member-grid">
+      <div class="m-card"><div class="m-avatar">HS</div><h4>Han Gyeol Song</h4><div class="focus">Data-driven analysis for air quality</div></div>
+      <div class="m-card"><div class="m-avatar">SS</div><h4>Sungjoon Sohn</h4><div class="focus">Compound hazard of extreme weather and air quality</div></div>
+    </div>
+
+    <div class="m-group-title">Integrated M.S. and Ph.D. Course</div>
+    <div class="member-grid">
+      <div class="m-card"><div class="m-avatar">YK</div><h4>Ye Eun Kwon</h4><div class="focus">Energy prediction based on numerical weather prediction</div></div>
+      <div class="m-card"><div class="m-avatar">KJ</div><h4>Kyu Bo Jeon</h4><div class="focus">Multimodal AI for climate prediction</div></div>
+      <div class="m-card"><div class="m-avatar">CL</div><h4>Chae Min Lim</h4><div class="focus">Anomaly prediction</div></div>
+      <div class="m-card"><div class="m-avatar">YK</div><h4>Yi Kyoung Kim</h4><div class="focus">Climate impact of energy infrastructure</div></div>
+    </div>
+
+    <div class="m-group-title">M.S. Course</div>
+    <div class="member-grid">
+      <div class="m-card"><div class="m-avatar">SY</div><h4>Subin Yoon</h4><div class="focus">Energy prediction</div></div>
+      <div class="m-card"><div class="m-avatar">YK</div><h4>Yu Seok Kwak</h4><div class="focus">Reinforcement learning and Optimization</div></div>
+    </div>
+
+    <div class="note">※ Undergraduate Course 구성원은 원본 사이트에 별도 등재 정보가 없어 생략했습니다. 새 학부연구생이 합류하면 여기에 추가해 주세요.</div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">PUBLICATIONS</div>
+      <h2>Selected Publications</h2>
+      <p>2025–2026년 주요 논문입니다. 2010년대부터 이어진 전체 논문 목록은 기존 홈페이지에서 확인하실 수 있습니다.</p>
+    </div>
+
+    <div class="pub-year">
+      <h4>2026</h4>
+      <div class="pub"><b>Jeon, G., and W. Choi*</b> — MGTF-Net: Explainable Multimodal Geodesic Track Forecasting for Typhoon Prediction. <span class="venue">NeurIPS 2026, in revision.</span></div>
+      <div class="pub"><b>Venkateswaran, R., D. Venkateswaran, J. H. Jeong, Y. Cho, and W. Choi*</b> — AQS-Informer: Long-term Wind Speed Forecasting via Adaptive Query Selection and EEMD-based Signal Decomposition. <span class="venue">Information Sciences, to be submitted.</span></div>
+      <div class="pub"><b>Kim, Y., W. Choi*, and D. Niyogi</b> — Contrasting Responses in Local Climate Impact of Solar Power Plant in Urban and Rural Regions. <span class="venue">npj Urban Sustainability, to be submitted.</span></div>
+      <div class="pub"><b>Sohn, S., M. J. Kim, C. Cho, and W. Choi*</b> — Data-driven approach to understanding spatiotemporal variability of ozone concentrations in Seoul Metropolitan Area. <span class="venue">Atmospheric Pollution Research, in revision.</span></div>
+      <div class="pub"><b>Song, H. G., W. Choi*, C. Cho, M. Y. Song, J. B. Kim, and K. Kim</b> — SHAP-Based Assessment of the Conditional Influence of PM2.5 on O3 Formation in Seoul, Republic of Korea. <span class="venue">Air Quality, Atmosphere & Health, in revision.</span></div>
+      <div class="pub"><b>Venkateswaran, R., W. Choi, J. H. Jeong, and J. Woo</b> — Reachable Set Estimation for Wind Energy Conversion System via Nonfragile Memory Sampled-data Control. <span class="venue">AIMS Mathematics, 11(3), 8308–8331.</span></div>
+      <div class="pub"><b>Venkateswaran, R., D. Venkateswaran, W. Choi, Y. Cho, and J. H. Jeong</b> — Hybrid CEEMDAN–Transformer–LSTM Framework for Enhanced Multi-Horizon Wind Speed Forecasting. <span class="venue">Journal of Wind Engineering & Industrial Aerodynamics, 272, 106408.</span></div>
+      <div class="pub"><b>Venkateswaran, D., R. Venkateswaran, C. Shin, W. Choi, and Y. Cho</b> — Novel VMD-Informer-LSTM Architecture for Solar Radiation Forecasting with Signal Decomposition and Sparse Attention. <span class="venue">Expert Systems With Applications, 305, 130612.</span></div>
+    </div>
+
+    <div class="pub-year">
+      <h4>2025</h4>
+      <div class="pub"><b>Jeon, G., and W. Choi*</b> — A Multimodal Deep Learning Model for Typhoon Track Prediction Incorporating Time Series Characteristics. <span class="venue">KIISE Transactions on Computing Practices, 31(12), 521–526.</span></div>
+      <div class="pub"><b>Jeon, G., C. Cho, K. Kim, and W. Choi*</b> — Deep-learning-based wildfire occurrence prediction with human factors in Gangwon Province, South Korea. <span class="venue">Ecological Informatics, 92, 103519.</span></div>
+      <div class="pub"><b>Kim, K.-Y., C.-H. Ho, H.-R. Oh, W. Choi, J. Kim, and H. M. Cheung</b> — High PM2.5 episodes in Seoul, Korea, associated with Siberian High intensity. <span class="venue">Climate Dynamics, 63, 224.</span></div>
+      <div class="pub"><b>Oh, H.-R., D.-S. R. Park, H.-Y. Ko, J. Seo, M. Lee, and W. Choi</b> — Comprehensive analysis of PM2.5 concentrations in the Seoul Metro underground stations. <span class="venue">Asia-Pacific Journal of Atmospheric Sciences, 61, 1.</span></div>
+    </div>
+
+    <div class="more-note">전체 논문 목록(2010–2026)은 <a href="https://sites.google.com/view/wschoi-sejong/publications" target="_blank" rel="noopener">기존 Publications 페이지</a>에서 확인할 수 있습니다.</div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="tag">PHOTO</div>
+      <h2>Lab Gallery</h2>
+      <p>세미나, 학회, 연구실 활동 사진을 채워 넣을 자리입니다.</p>
+    </div>
+    <div class="gallery">
+      <div class="g-tile g1"><span>연구실 세미나</span></div>
+      <div class="g-tile g2"><span>학회 발표</span></div>
+      <div class="g-tile g3"><span>워크숍</span></div>
+      <div class="g-tile g4"><span>랩 회식</span></div>
+      <div class="g-tile g5"><span>졸업 사진</span></div>
+      <div class="g-tile g6"><span>연구실 전경</span></div>
+    </div>
+    <div class="note">※ 게시된 페이지는 외부 이미지를 불러올 수 없어 자리표시 타일로 대체했습니다. 실제 사진 파일을 올려주시면 갤러리에 반영해 드릴게요.</div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="brand" style="margin-bottom:8px;">AI SCIENCE <em>LAB</em></div>
+        <div>Dept. of Artificial Intelligence and Data Science, Sejong University, Seoul, Republic of Korea</div>
+      </div>
+      <div>
+        <div>PI: Prof. Woosuk Choi — <a href="mailto:wschoi@sejong.ac.kr">wschoi@sejong.ac.kr</a></div>
+        <div>Office: Daeyang AI Center room 806</div>
+        <div>Lab: Daeyang AI Center room 730</div>
+        <div>© 2026 AI Science Lab, Sejong University.</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
