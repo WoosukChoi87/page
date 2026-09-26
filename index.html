@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -47,18 +47,24 @@
   @media(min-width:760px){nav ul{display:flex;}}
 
   /* HERO */
-  .hero{position:relative; overflow:hidden; padding:88px 0 76px; border-bottom:1px solid var(--line);}
-  .hero svg.sun{position:absolute; inset:0; width:100%; height:100%; opacity:.65; pointer-events:none;}
-  .hero-inner{position:relative; z-index:2;}
-  .notice{display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); background:var(--bg-panel); border-radius:100px; padding:7px 16px; font-size:13px; color:var(--coral); margin-bottom:26px;}
+  .hero{position:relative; min-height:600px; display:flex; align-items:flex-end; overflow:hidden; border-bottom:1px solid var(--line);}
+  .hero svg.scene{position:absolute; inset:0; width:100%; height:100%; display:block;}
+  .hero-scrim{position:absolute; inset:0; background:linear-gradient(0deg, rgba(6,17,15,.92) 8%, rgba(6,17,15,.35) 50%, rgba(6,17,15,.05) 78%);}
+  .hero-inner{position:relative; z-index:2; width:100%; padding:0 0 60px;}
+  .badge-row{display:flex; align-items:center; gap:10px; margin-bottom:22px; flex-wrap:wrap;}
+  .pill{border:1px solid var(--line); border-radius:100px; padding:6px 14px; font-size:12.5px; letter-spacing:.02em; backdrop-filter:blur(4px);}
+  .pill-ai{color:var(--gold); background:rgba(95,176,230,.10);}
+  .pill-sus{color:var(--coral); background:rgba(79,219,146,.10);}
+  .pill-x{color:var(--muted); font-size:13px;}
+  .notice{display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); background:rgba(18,51,44,.7); backdrop-filter:blur(4px); border-radius:100px; padding:7px 16px; font-size:13px; color:var(--coral); margin-bottom:24px;}
   .notice .dot{width:6px; height:6px; border-radius:50%; background:var(--coral);}
-  .hero h1{font-size:clamp(32px,5vw,52px); line-height:1.14; font-weight:600; margin:0 0 20px; max-width:760px;}
+  .hero h1{font-size:clamp(34px,5.6vw,60px); line-height:1.12; font-weight:600; margin:0 0 20px; max-width:760px;}
   .hero h1 em{font-style:normal; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
-  .hero p{color:var(--muted); font-size:16.5px; max-width:600px; margin:0 0 32px;}
+  .hero p{color:#c4dcd3; font-size:17px; max-width:600px; margin:0 0 32px;}
   .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
   .btn{display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:8px; font-size:14px; font-weight:600; text-decoration:none;}
   .btn-primary{background:var(--grad); color:#06120f;}
-  .btn-ghost{border:1px solid var(--line); color:var(--text);}
+  .btn-ghost{border:1px solid rgba(234,243,239,.35); color:var(--text);}
 
   section{padding:72px 0;}
   section + section{border-top:1px solid var(--line);}
@@ -102,6 +108,8 @@
   .pub-year h4{font-family:'Fraunces'; font-size:16px; color:var(--gold); margin:0 0 14px; font-weight:600;}
   .pub{padding:14px 0; border-bottom:1px solid var(--line); font-size:14px; color:var(--muted);}
   .pub b{color:var(--text); font-weight:500;}
+  .pub a{color:var(--text); text-decoration:underline; text-decoration-color:var(--line);}
+  .pub a:hover{color:var(--gold);}
   .pub .venue{color:#7fa89c;}
   .more-note{margin-top:26px; font-size:13.5px; color:var(--muted);}
   .more-note a{color:var(--gold); text-decoration:underline;}
@@ -135,24 +143,70 @@
 </nav>
 
 <header class="hero">
-  <svg class="sun" viewBox="0 0 1080 420" preserveAspectRatio="xMidYMid slice">
-    <g fill="none" stroke="#1f4038" stroke-width="1">
-      <circle cx="900" cy="60" r="60"/>
-      <circle cx="900" cy="60" r="110"/>
-      <circle cx="900" cy="60" r="165"/>
+  <svg class="scene" viewBox="0 0 1440 640" preserveAspectRatio="xMidYMax slice">
+    <defs>
+      <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#5fb0e6" stop-opacity="0.9"/>
+        <stop offset="55%" stop-color="#4fdb92" stop-opacity="0.55"/>
+        <stop offset="100%" stop-color="#4fdb92" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="sunCore" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#7fc4ef"/>
+        <stop offset="1" stop-color="#5fe0a0"/>
+      </linearGradient>
+    </defs>
+
+    <circle cx="740" cy="260" r="230" fill="url(#sunGlow)"/>
+
+    <g stroke="#3a5c50" stroke-width="1" opacity="0.5" fill="none">
+      <circle cx="740" cy="260" r="110"/>
+      <circle cx="740" cy="260" r="155"/>
+      <circle cx="740" cy="260" r="195"/>
     </g>
-    <g stroke="var(--gold)" stroke-width="1.4" opacity=".5">
-      <path d="M60 320 Q 220 260 380 300 T 700 280"/>
-      <path d="M60 360 Q 240 300 420 340 T 760 320"/>
+    <g stroke="var(--gold)" stroke-width="1.2" opacity="0.6">
+      <line x1="740" y1="260" x2="850" y2="175"/>
+      <line x1="740" y1="260" x2="880" y2="300"/>
+      <line x1="740" y1="260" x2="630" y2="345"/>
+      <line x1="740" y1="260" x2="610" y2="180"/>
     </g>
     <g fill="var(--coral)">
-      <circle cx="380" cy="300" r="3.5"/><circle cx="700" cy="280" r="3"/><circle cx="420" cy="340" r="3"/><circle cx="760" cy="320" r="3.5"/>
+      <circle cx="850" cy="175" r="3.5"/><circle cx="880" cy="300" r="3"/>
+      <circle cx="630" cy="345" r="3"/><circle cx="610" cy="180" r="3.5"/>
     </g>
+    <circle cx="740" cy="260" r="62" fill="url(#sunCore)"/>
+
+    <g stroke="var(--gold)" stroke-width="1" opacity="0.55" fill="none">
+      <path d="M120 90 L260 150"/><path d="M260 150 L80 200"/>
+      <path d="M340 70 L430 160"/><path d="M1160 90 L1020 150"/>
+      <path d="M1020 150 L1200 200"/><path d="M1340 80 L1250 170"/>
+    </g>
+    <g fill="var(--coral)" opacity="0.85">
+      <circle cx="120" cy="90" r="2.6"/><circle cx="260" cy="150" r="2.2"/><circle cx="80" cy="200" r="2.2"/>
+      <circle cx="340" cy="70" r="2.6"/><circle cx="430" cy="160" r="2.2"/>
+      <circle cx="1160" cy="90" r="2.6"/><circle cx="1020" cy="150" r="2.2"/><circle cx="1200" cy="200" r="2.2"/>
+      <circle cx="1340" cy="80" r="2.6"/><circle cx="1250" cy="170" r="2.2"/>
+    </g>
+
+    <path d="M0 460 L100 400 L220 440 L340 380 L460 430 L600 370 L740 420 L880 360 L1020 410 L1160 370 L1300 420 L1440 390 L1440 640 L0 640 Z" fill="#173f36" opacity="0.6"/>
+    <path d="M0 520 L150 460 L300 500 L450 440 L620 500 L800 450 L980 510 L1150 460 L1300 505 L1440 470 L1440 640 L0 640 Z" fill="#123a32" opacity="0.85"/>
+
+    <g stroke="var(--coral)" stroke-width="1.4" fill="none" opacity="0.35">
+      <path d="M60 585 Q 280 560 500 588 T 940 575"/>
+      <path d="M500 610 Q 720 588 940 612 T 1380 598"/>
+    </g>
+
+    <path d="M0 560 L180 520 L360 555 L560 505 L760 550 L960 510 L1180 555 L1440 520 L1440 640 L0 640 Z" fill="#0b211d"/>
   </svg>
+  <div class="hero-scrim"></div>
   <div class="wrap hero-inner">
+    <div class="badge-row">
+      <span class="pill pill-ai">Artificial Intelligence</span>
+      <span class="pill-x">×</span>
+      <span class="pill pill-sus">Sustainability</span>
+    </div>
     <div class="notice"><span class="dot"></span>We are looking for self-motivated postdocs and passionate students to join our team.</div>
-    <h1>데이터로 자연과 사회의<br><em>새로운 통찰</em>을 찾습니다.</h1>
-    <p>AIS Lab은 수치모델과 인공지능을 결합해 미래의 문제를 데이터 기반으로 해결하는 연구실입니다. 태양광·풍력 예측부터 대기질, 태풍, 도시 기후까지 — 자연·사회 현상의 새로운 가치를 탐구합니다.</p>
+    <h1>Illuminating a <em>sustainable future</em> through intelligent systems.</h1>
+    <p>AI Science Lab stands at the intersection of artificial intelligence and environmental science. We turn vast atmospheric, climate, and energy data into foresight — building intelligent systems that help the planet not just predict change, but withstand and thrive through it.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="#publications">Publications</a>
       <a class="btn btn-ghost" href="#contact">Contact Us</a>
@@ -164,8 +218,8 @@
   <div class="wrap">
     <div class="section-head">
       <div class="tag">RESEARCH</div>
-      <h2>Solar & Wind Power Forecasting using Numerical Simulation and AI</h2>
-      <p>수치 시뮬레이션과 인공지능을 융합해 에너지·기후·대기환경 전반의 미래를 예측하고 대응 전략을 설계합니다.</p>
+      <h2>Research Areas</h2>
+      <p>We combine numerical simulation with artificial intelligence to forecast and manage the future of energy, climate, and the atmosphere.</p>
     </div>
     <div class="research-grid">
       <div class="r-card">
@@ -272,7 +326,7 @@
     <div class="section-head">
       <div class="tag">MEMBER</div>
       <h2>Professor & Students</h2>
-      <p>기후·에너지·AI를 아우르는 다양한 배경의 연구자들이 함께합니다.</p>
+      <p>A diverse group of researchers working across climate, energy, and artificial intelligence.</p>
     </div>
 
     <div class="prof-card">
@@ -323,7 +377,7 @@
       <div class="m-card"><div class="m-avatar">YK</div><h4>Yu Seok Kwak</h4><div class="focus">Reinforcement learning and Optimization</div></div>
     </div>
 
-    <div class="note">※ Undergraduate Course 구성원은 원본 사이트에 별도 등재 정보가 없어 생략했습니다. 새 학부연구생이 합류하면 여기에 추가해 주세요.</div>
+    <div class="note">Note: No undergraduate researchers are currently listed on the original site. New undergraduate members will be added here as they join.</div>
   </div>
 </section>
 
@@ -331,31 +385,119 @@
   <div class="wrap">
     <div class="section-head">
       <div class="tag">PUBLICATIONS</div>
-      <h2>Selected Publications</h2>
-      <p>2025–2026년 주요 논문입니다. 2010년대부터 이어진 전체 논문 목록은 기존 홈페이지에서 확인하실 수 있습니다.</p>
+      <h2>Publications</h2>
+      <p>Complete list of journal articles and conference papers, 2010–2026.</p>
     </div>
 
     <div class="pub-year">
       <h4>2026</h4>
-      <div class="pub"><b>Jeon, G., and W. Choi*</b> — MGTF-Net: Explainable Multimodal Geodesic Track Forecasting for Typhoon Prediction. <span class="venue">NeurIPS 2026, in revision.</span></div>
-      <div class="pub"><b>Venkateswaran, R., D. Venkateswaran, J. H. Jeong, Y. Cho, and W. Choi*</b> — AQS-Informer: Long-term Wind Speed Forecasting via Adaptive Query Selection and EEMD-based Signal Decomposition. <span class="venue">Information Sciences, to be submitted.</span></div>
+      <div class="pub"><b>Kwon, Y., H.-J. Song, and W. Choi</b> — Particulate matter characteristics by forecast regions in Korea using the fusion of explainable artificial intelligence and clustering. <span class="venue">SOLA, to be submitted.</span></div>
       <div class="pub"><b>Kim, Y., W. Choi*, and D. Niyogi</b> — Contrasting Responses in Local Climate Impact of Solar Power Plant in Urban and Rural Regions. <span class="venue">npj Urban Sustainability, to be submitted.</span></div>
+      <div class="pub"><b>Venkateswaran, R., D. Venkateswaran, J. H. Jeong, Y. Cho, and W. Choi*</b> — AQS-Informer: Long-term Wind Speed Forecasting via Adaptive Query Selection and EEMD-based Signal Decomposition. <span class="venue">Information Sciences, to be submitted.</span></div>
+      <div class="pub"><b>Yoo, S., I. Park, H. M. Cheung, W. Choi, J. Kim, S. Yang, and C.-H. Ho*</b> — Operational Deep-learning Ensemble Forecast System for Tropical Cyclone Tracks in the Western North Pacific. <span class="venue">Bulletin of the American Meteorological Society, to be submitted.</span></div>
+      <div class="pub"><b>Lim, C., W. Choi*, and Y. Chen</b> — Summertime green-roof effects on temperature and CO2-concentration reduction in Seoul, South Korea, using the ENVI-met model. <span class="venue">Ecological Indicators, submitted.</span></div>
+      <div class="pub"><b>Jeon, G., and W. Choi*</b> — MGTF-Net: Explainable Multimodal Geodesic Track Forecasting for Typhoon Prediction. <span class="venue">NeurIPS 2026, in revision.</span></div>
       <div class="pub"><b>Sohn, S., M. J. Kim, C. Cho, and W. Choi*</b> — Data-driven approach to understanding spatiotemporal variability of ozone concentrations in Seoul Metropolitan Area. <span class="venue">Atmospheric Pollution Research, in revision.</span></div>
       <div class="pub"><b>Song, H. G., W. Choi*, C. Cho, M. Y. Song, J. B. Kim, and K. Kim</b> — SHAP-Based Assessment of the Conditional Influence of PM2.5 on O3 Formation in Seoul, Republic of Korea. <span class="venue">Air Quality, Atmosphere & Health, in revision.</span></div>
-      <div class="pub"><b>Venkateswaran, R., W. Choi, J. H. Jeong, and J. Woo</b> — Reachable Set Estimation for Wind Energy Conversion System via Nonfragile Memory Sampled-data Control. <span class="venue">AIMS Mathematics, 11(3), 8308–8331.</span></div>
-      <div class="pub"><b>Venkateswaran, R., D. Venkateswaran, W. Choi, Y. Cho, and J. H. Jeong</b> — Hybrid CEEMDAN–Transformer–LSTM Framework for Enhanced Multi-Horizon Wind Speed Forecasting. <span class="venue">Journal of Wind Engineering & Industrial Aerodynamics, 272, 106408.</span></div>
-      <div class="pub"><b>Venkateswaran, D., R. Venkateswaran, C. Shin, W. Choi, and Y. Cho</b> — Novel VMD-Informer-LSTM Architecture for Solar Radiation Forecasting with Signal Decomposition and Sparse Attention. <span class="venue">Expert Systems With Applications, 305, 130612.</span></div>
+      <div class="pub"><b>Venkateswaran, R., D. Venkateswaran, J. H. Jeong, Y. Cho, and W. Choi*</b> — A Multimodal Framework for Wind Speed Forecasting Using Decomposition-Enhanced Transformers with Large Language Model-Derived Semantic Weather Embeddings. <span class="venue">Computers and Electrical Engineering, revised.</span></div>
+      <div class="pub"><b>Venkateswaran, R., W. Choi, S. R. Lee, Y. H. Joo, and J. H. Jeong</b> — Coordinated Pitch and Speed Operations for Power Maximization of Large Scale PMVG-based WECS Under Integral Adaptive Backstepping Control Strategy. <span class="venue">Sadhana, accepted.</span></div>
+      <div class="pub"><b>Venkateswaran, R., W. Choi, J. H. Jeong, and J. Woo</b> — <a href="https://www.aimspress.com/article/doi/10.3934/math.2026341" target="_blank" rel="noopener">Reachable Set Estimation for Wind Energy Conversion System via Nonfragile Memory Sampled-data Control</a>. <span class="venue">AIMS Mathematics, 11(3), 8308–8331.</span></div>
+      <div class="pub"><b>Venkateswaran, R., D. Venkateswaran, W. Choi, Y. Cho, and J. H. Jeong</b> — <a href="https://www.sciencedirect.com/science/article/pii/S0167610526000772" target="_blank" rel="noopener">Hybrid CEEMDAN–Transformer–LSTM Framework for Enhanced Multi-Horizon Wind Speed Forecasting</a>. <span class="venue">Journal of Wind Engineering & Industrial Aerodynamics, 272, 106408.</span></div>
+      <div class="pub"><b>Venkateswaran, D., R. Venkateswaran, C. Shin, W. Choi, and Y. Cho</b> — <a href="https://www.sciencedirect.com/science/article/abs/pii/S0957417425042277" target="_blank" rel="noopener">Novel VMD-Informer-LSTM Architecture for Solar Radiation Forecasting with Signal Decomposition and Sparse Attention for Smart Energy Applications</a>. <span class="venue">Expert Systems With Applications, 305, 130612.</span></div>
     </div>
 
     <div class="pub-year">
       <h4>2025</h4>
-      <div class="pub"><b>Jeon, G., and W. Choi*</b> — A Multimodal Deep Learning Model for Typhoon Track Prediction Incorporating Time Series Characteristics. <span class="venue">KIISE Transactions on Computing Practices, 31(12), 521–526.</span></div>
-      <div class="pub"><b>Jeon, G., C. Cho, K. Kim, and W. Choi*</b> — Deep-learning-based wildfire occurrence prediction with human factors in Gangwon Province, South Korea. <span class="venue">Ecological Informatics, 92, 103519.</span></div>
-      <div class="pub"><b>Kim, K.-Y., C.-H. Ho, H.-R. Oh, W. Choi, J. Kim, and H. M. Cheung</b> — High PM2.5 episodes in Seoul, Korea, associated with Siberian High intensity. <span class="venue">Climate Dynamics, 63, 224.</span></div>
-      <div class="pub"><b>Oh, H.-R., D.-S. R. Park, H.-Y. Ko, J. Seo, M. Lee, and W. Choi</b> — Comprehensive analysis of PM2.5 concentrations in the Seoul Metro underground stations. <span class="venue">Asia-Pacific Journal of Atmospheric Sciences, 61, 1.</span></div>
+      <div class="pub"><b>Jeon, G., and W. Choi*</b> — <a href="https://www.kiise.or.kr/e_journal/2025/12/KTCP/04.pdf" target="_blank" rel="noopener">A Multimodal Deep Learning Model for Typhoon Track Prediction Incorporating Time Series Characteristics</a>. <span class="venue">KIISE Transactions on Computing Practices, 31(12), 521–526. (Domestic)</span></div>
+      <div class="pub"><b>Jeon, G., C. Cho, K. Kim, and W. Choi*</b> — <a href="https://www.sciencedirect.com/science/article/pii/S157495412500528X" target="_blank" rel="noopener">Deep-learning-based wildfire occurrence prediction with human factors in Gangwon Province, South Korea</a>. <span class="venue">Ecological Informatics, 92, 103519.</span></div>
+      <div class="pub"><b>Kim, K.-Y., C.-H. Ho, H.-R. Oh, W. Choi, J. Kim, and H. M. Cheung</b> — <a href="https://link.springer.com/article/10.1007/s00382-025-07703-x" target="_blank" rel="noopener">High PM2.5 episodes in Seoul, Korea, associated with Siberian High intensity</a>. <span class="venue">Climate Dynamics, 63, 224.</span></div>
+      <div class="pub"><b>Noh, Y., D. Lee, S. Joo, J. Sim, C. S. Hong, K.-h. Lee, J. O. Kim, S.-k. Shin, J. Park, L. Atsanavong, V. Phanphongsa, W. Choi, S.-h. Oh, G. Lee, S.-m. Kim, M.-k. Sung, J. Park, and K. Kim</b> — <a href="https://sensors.myu-group.co.jp/article.php?ss=5484" target="_blank" rel="noopener">Spatiotemporal Analysis of Air Pollutants in Vientiane, Laos via Mobile Sensing</a>. <span class="venue">Sensors and Materials, 37(2), 759–772.</span></div>
+      <div class="pub"><b>Oh, H.-R., D.-S. R. Park, H.-Y. Ko, J. Seo, M. Lee, and W. Choi</b> — <a href="https://link.springer.com/article/10.1007/s13143-024-00386-0" target="_blank" rel="noopener">Comprehensive analysis of PM2.5 concentrations in the Seoul Metro underground stations: Relationships with indoor sources and outdoor air quality</a>. <span class="venue">Asia-Pacific Journal of Atmospheric Sciences, 61, 1.</span></div>
     </div>
 
-    <div class="more-note">전체 논문 목록(2010–2026)은 <a href="https://sites.google.com/view/wschoi-sejong/publications" target="_blank" rel="noopener">기존 Publications 페이지</a>에서 확인할 수 있습니다.</div>
+    <div class="pub-year">
+      <h4>2024</h4>
+      <div class="pub"><b>Song, H.-J., W. Choi, and Z. Wang</b> — <a href="https://link.springer.com/article/10.1007/s13143-024-00381-5" target="_blank" rel="noopener">Abnormal Climate in 2022 Summer in Korea and Asia</a>. <span class="venue">Asia-Pacific Journal of Atmospheric Sciences, 60, 385–386.</span></div>
+      <div class="pub"><b>Choi, W., C.-H. Ho, and Y. Lee</b> — <a href="https://www.sciencedirect.com/science/article/pii/S0048969724023003" target="_blank" rel="noopener">Temporal pattern classification of PM2.5 chemical compositions in Seoul, Korea using K-means clustering analysis</a>. <span class="venue">Science of the Total Environment, 927, 172157.</span></div>
+      <div class="pub"><b>Choi, W.*</b> — <a href="https://www.tandfonline.com/doi/full/10.1080/1573062X.2023.2263429" target="_blank" rel="noopener">Weather condition and urban infrastructure for sustainable water supply from water meter frost</a>. <span class="venue">Urban Water Journal, 21(1), 92–99.</span></div>
+    </div>
+
+    <div class="pub-year">
+      <h4>2023</h4>
+      <div class="pub"><b>Choi, W., C.-H. Ho, J.-W. Heo, K.-Y. Kim, S.-W. Kim, and J. Kim</b> — <a href="https://link.springer.com/article/10.1007/s13143-022-00287-0" target="_blank" rel="noopener">Recent air quality deterioration on weekends in Seoul, South Korea: a focus on external contribution</a>. <span class="venue">Asia-Pacific Journal of Atmospheric Sciences, 59(5), 531–543.</span></div>
+      <div class="pub"><b>Choi, W.*, M. Y. Song, J. B. Kim, K. Kim, and C. Cho</b> — <a href="https://link.springer.com/article/10.1007/s10661-023-11732-6" target="_blank" rel="noopener">Regional classification of high PM10 concentrations in the Seoul metropolitan and Chungcheongnam-do areas, Republic of Korea</a>. <span class="venue">Environmental Monitoring and Assessment, 195, 1075.</span></div>
+      <div class="pub"><b>Choi, W., C.-H. Ho, and K.-Y. Kim</b> — <a href="https://www.nature.com/articles/s41598-023-31316-1" target="_blank" rel="noopener">Critical contribution of moisture to the air quality deterioration in a warm and humid weather</a>. <span class="venue">Scientific Reports, 13, 4260.</span></div>
+      <div class="pub"><b>Lee, G., S. Hwang, D. Lee, K. Kim, M. Y. Song, W. Choi, J. Heo, D. Park, G. Lee, M. Jung, and J. B. Kim</b> — <a href="https://jekosae.or.kr/_common/do.php?a=full&b=41&bidx=3218&aidx=35915" target="_blank" rel="noopener">Measurement of internal and external air pollutants of enclosed bus station</a>. <span class="venue">Journal of Korean Society for Atmospheric Environment, 39(1), 128–143. (Domestic)</span></div>
+    </div>
+
+    <div class="pub-year">
+      <h4>2022</h4>
+      <div class="pub"><b>Lee, G., J. Kim, S. Park, M. Y. Song, K. Kim, D. Lee, W. Choi, and J. B. Kim</b> — <a href="https://jekosae.or.kr/_common/do.php?a=full&b=41&bidx=3094&aidx=34489" target="_blank" rel="noopener">Characteristics of spatial and temporal distribution of VOCs around painting facilities and roadside located near Cheonan downtown area</a>. <span class="venue">Journal of Korean Society for Atmospheric Environment, 38(5), 687–701. (Domestic)</span></div>
+      <div class="pub"><b>Lee, D., D.-H. Kim, D. Lee, J. B. Kim, M. Y. Song, W. Choi, C. S. Hong, and K. Kim</b> — <a href="https://jekosae.or.kr/_common/do.php?a=full&b=41&bidx=3035&aidx=33915" target="_blank" rel="noopener">A study on distribution of volatile organic compounds concentration over Paju national publishing complex</a>. <span class="venue">Journal of Korean Society for Atmospheric Environment, 38(4), 599–609. (Domestic)</span></div>
+      <div class="pub"><b>Choi, W.</b> — <a href="https://drive.google.com/uc?export=view&id=18wjoNZYjwQvkhWQxSiGDs-nlLKgXHd94" target="_blank" rel="noopener">A study on the spatial classification of particulate matters concentration in the Seoul metropolitan and Chungcheong area using cluster analysis</a>. <span class="venue">Journal of Korean Institute of Intelligent Systems, 32(4), 307–311. (Domestic)</span></div>
+      <div class="pub"><b>Yun, S., W. Choi, J. Lee, K. Lee, and H. Chun</b> — <a href="http://joie.or.kr/journal/article.php?code=83850" target="_blank" rel="noopener">Performance evaluation of the air purification system of a Seoul city bus</a>. <span class="venue">Journal of Odor and Indoor Environment, 21(2), 89–94. (Domestic)</span></div>
+      <div class="pub"><b>Cho, C., S.-W. Kim, W. Choi, and M.-H. Kim</b> — <a href="https://doi.org/10.1016/j.scitotenv.2021.152453" target="_blank" rel="noopener">Significant light absorption of brown carbon during the 2020 California wildfires</a>. <span class="venue">Science of the Total Environment, 813, 152453.</span></div>
+    </div>
+
+    <div class="pub-year">
+      <h4>2021</h4>
+      <div class="pub"><b>Choi, W., C.-H. Ho, J. Jung, M. Chang, and K.-J. Ha</b> — <a href="https://link.springer.com/article/10.1007/s00382-021-05853-2" target="_blank" rel="noopener">Synoptic conditions controlling the seasonal onset and days of heatwaves over Korea</a>. <span class="venue">Climate Dynamics, 57, 3045–3053.</span></div>
+      <div class="pub"><b>Cheung, H. M., C.-H. Ho, M. Chang, D. Kim, J. Kim, and W. Choi</b> — <a href="https://journals.ametsoc.org/view/journals/wefo/36/4/WAF-D-20-0102.1.xml" target="_blank" rel="noopener">Development of a track-pattern-based medium-range tropical cyclone forecasting system for the western North Pacific</a>. <span class="venue">Weather and Forecasting, 36(4), 1505–1518.</span></div>
+      <div class="pub"><b>Ho, C.-H., J.-W. Heo, M. Chang, W. Choi, J. Kim, S.-W. Kim, and H.-R. Oh</b> — <a href="https://www.sciencedirect.com/science/article/pii/S1309104221001641" target="_blank" rel="noopener">Regulatory measures significantly reduced air-pollutant concentrations in Seoul, Korea</a>. <span class="venue">Atmospheric Pollution Research, 12(7), 101098.</span></div>
+      <div class="pub"><b>Chun, H., J. Song, J. Park, W. Choi, K. Lee, and M. Y. Song</b> — <a href="http://joie.or.kr/journal/article.php?code=78163" target="_blank" rel="noopener">Characteristics of the VOCs emitted from automotive painting workshop and control facilities</a>. <span class="venue">Journal of Odor and Indoor Environment, 20(1), 39–50. (Domestic)</span></div>
+    </div>
+
+    <div class="pub-year">
+      <h4>2020</h4>
+      <div class="pub"><b>Chen, X., S.-J. Jeong, Y. Zheng, H. Park, C.-E. Park, J. Joo, W. Choi, C. Xuan, and C. Zheng</b> — <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2019JD031972" target="_blank" rel="noopener">Evaluation of different roof materials for the mitigation of urban warming in a subtropical monsoon climate</a>. <span class="venue">Journal of Geophysical Research, 125(14), e2019JD031972.</span></div>
+      <div class="pub"><b>Park, M.-S., J.-Y. Byon, B.-J. Kim, W. Choi, G. M. Myung, S.-H. Lee, T.-I. Cho, J.-H. Chae, J.-S. Min, M. Kang, J.-B. Jee, S.-H. Kim, and C.-R. Cho</b> — <a href="https://www.mdpi.com/2073-4433/11/3/299" target="_blank" rel="noopener">A Building-Block Urban Meteorological observation Experiment (BBMEX) campaign in central commercial area in Seoul</a>. <span class="venue">Atmosphere, 11(3), 299.</span></div>
+    </div>
+
+    <div class="pub-year">
+      <h4>2019</h4>
+      <div class="pub"><b>Choi, W., and K.-Y. Kim</b> — <a href="https://www.nature.com/articles/s41598-019-44414-w" target="_blank" rel="noopener">Summertime variability of the western North Pacific subtropical high and its synoptic influences on the East Asian weather</a>. <span class="venue">Scientific Reports, 9, 7865.</span></div>
+      <div class="pub"><b>Choi, W., C.-H. Ho, J. Kim, and J. C. L. Chan</b> — <a href="https://link.springer.com/article/10.1007/s00382-019-04647-x" target="_blank" rel="noopener">Near-future tropical cyclone predictions in the western North Pacific: Fewer tropical storms but more typhoons</a>. <span class="venue">Climate Dynamics, 53(3), 1341–1356.</span></div>
+    </div>
+
+    <div class="pub-year">
+      <h4>2018</h4>
+      <div class="pub"><b>Heo, J.-W., C.-H. Ho, T.-W. Park, W. Choi, J.-H. Jeong, and J. Kim</b> — <a href="https://www.mdpi.com/2073-4433/9/6/222" target="_blank" rel="noopener">Changes in cold surge occurrence over East Asia in the future: Role of thermal structure</a>. <span class="venue">Atmosphere, 9(6), 222.</span></div>
+      <div class="pub"><b>Choi, W., and K.-Y. Kim</b> — <a href="https://www.nature.com/articles/s41598-018-25932-5" target="_blank" rel="noopener">Physical mechanism of spring and summertime drought over North America associated with the boreal warming</a>. <span class="venue">Scientific Reports, 8, 7533.</span></div>
+      <div class="pub"><b>Choi, W., C.-H. Ho, M.-K. Kim, J. Kim, H.-D. Yoo, J.-G. Jhun, and J.-H. Jeong</b> — <a href="https://rmets.onlinelibrary.wiley.com/doi/abs/10.1002/joc.5554" target="_blank" rel="noopener">Season-dependent warming characteristics observed at twelve stations in South Korea over the recent 100 years</a>. <span class="venue">International Journal of Climatology, 38(11), 4092–4101.</span></div>
+    </div>
+
+    <div class="pub-year">
+      <h4>2017</h4>
+      <div class="pub"><b>Choi, W., C.-H. Ho, D.-S. R. Park, J. Kim, and J. C. L. Chan</b> — <a href="https://journals.ametsoc.org/view/journals/clim/30/21/jcli-d-17-0206.1.xml" target="_blank" rel="noopener">Near-Future Prediction of Tropical Cyclone Activity Over the North Atlantic</a>. <span class="venue">Journal of Climate, 30, 8795–8809.</span></div>
+    </div>
+
+    <div class="pub-year">
+      <h4>2016</h4>
+      <div class="pub"><b>Ho, C.-H., W. Choi, J. Kim, M.-K. Kim, and H.-D. Yoo</b> — <a href="https://link.springer.com/article/10.1007/s13143-016-0016-x" target="_blank" rel="noopener">Does El Niño-Southern Oscillation affect the precipitation in Korea on seasonal time scales?</a> <span class="venue">Asia-Pacific Journal of Atmospheric Sciences, 52(4), 395–403.</span></div>
+      <div class="pub"><b>Choi, W., C.-H. Ho, C.-S. Jin, J. Kim, S. Feng, D.-S. R. Park, and J.-K. E. Schemm</b> — <a href="https://link.springer.com/article/10.1007/s00382-016-3013-y" target="_blank" rel="noopener">Seasonal forecasting of intense tropical cyclones over the North Atlantic and the western North Pacific basins</a>. <span class="venue">Climate Dynamics, 47(9), 3063–3075.</span></div>
+      <div class="pub"><b>Choi, W., C.-H. Ho, J. Kim, H.-S. Kim, S. Feng, and K. Kang</b> — <a href="https://journals.ametsoc.org/view/journals/clim/29/2/jcli-d-15-0407.1.xml" target="_blank" rel="noopener">A track-pattern-based seasonal prediction of tropical cyclone activity over the North Atlantic</a>. <span class="venue">Journal of Climate, 29, 481–494.</span></div>
+    </div>
+
+    <div class="pub-year">
+      <h4>2014</h4>
+      <div class="pub"><b>Choi, W., C.-H. Ho, K. Kang, and W.-T. Yun</b> — <a href="https://drive.google.com/uc?export=view&id=1zxLJRJBJosjpArg06D4W5fon8C7X0pyo" target="_blank" rel="noopener">Seasonal prediction of tropical cyclone activity in summer and autumn over the western North Pacific and its application to influencing tropical cyclones to the Korean peninsula</a>. <span class="venue">Atmosphere, 24(4), 1–7. (Domestic)</span></div>
+      <div class="pub"><b>Jin, C.-S., C.-H. Ho, D.-S. R. Park, W. Choi, D. Kim, J.-H. Lee, K.-H. Chang, and K. Kang</b> — <a href="https://drive.google.com/uc?export=view&id=18Pjr9-a-4VZZ7m5Kan-ATTt9cwcuMlmP" target="_blank" rel="noopener">Development of the automated prediction system for seasonal tropical cyclone activity over the western North Pacific and its evaluation for early predictability</a>. <span class="venue">Atmosphere, 24(1), 123–130. (Domestic)</span></div>
+    </div>
+
+    <div class="pub-year">
+      <h4>2013</h4>
+      <div class="pub"><b>Ho, C.-H., J.-H. Kim, H.-S. Kim, W. Choi, M.-H. Lee, H.-D. Yoo, T.-R. Kim, and S. Park</b> — <a href="https://link.springer.com/article/10.1007/s00376-013-2237-6" target="_blank" rel="noopener">Technical note on a track-pattern-based model for predicting seasonal tropical cyclone activity over the western North Pacific</a>. <span class="venue">Advances in Atmospheric Sciences, 30, 1260–1274.</span></div>
+    </div>
+
+    <div class="pub-year">
+      <h4>2012</h4>
+      <div class="pub"><b>Kim, J.-H., C.-H. Ho, H.-S. Kim, and W. Choi</b> — <a href="https://journals.ametsoc.org/view/journals/wefo/27/3/waf-d-11-00109_1.xml" target="_blank" rel="noopener">2010 Western North Pacific typhoon season: Seasonal overview and forecast using track-pattern-based model</a>. <span class="venue">Weather and Forecasting, 27, 730–743.</span></div>
+    </div>
+
+    <div class="pub-year">
+      <h4>2010</h4>
+      <div class="pub"><b>Choi, W., C.-H. Ho, and H.-S. Kim</b> — <a href="https://drive.google.com/uc?export=view&id=1viKYI9o6tk6Mqh9jycI2NvhxVuPb0S45" target="_blank" rel="noopener">Influence of large-scale environments on tropical cyclone activity over the western North Pacific: A case study for 2009</a>. <span class="venue">Journal of Climate Change Research, 1(2), 133–145. (Domestic)</span></div>
+    </div>
   </div>
 </section>
 
@@ -364,17 +506,17 @@
     <div class="section-head">
       <div class="tag">PHOTO</div>
       <h2>Lab Gallery</h2>
-      <p>세미나, 학회, 연구실 활동 사진을 채워 넣을 자리입니다.</p>
+      <p>A space reserved for photos from seminars, conferences, and lab life.</p>
     </div>
     <div class="gallery">
-      <div class="g-tile g1"><span>연구실 세미나</span></div>
-      <div class="g-tile g2"><span>학회 발표</span></div>
-      <div class="g-tile g3"><span>워크숍</span></div>
-      <div class="g-tile g4"><span>랩 회식</span></div>
-      <div class="g-tile g5"><span>졸업 사진</span></div>
-      <div class="g-tile g6"><span>연구실 전경</span></div>
+      <div class="g-tile g1"><span>Lab Seminar</span></div>
+      <div class="g-tile g2"><span>Conference Talk</span></div>
+      <div class="g-tile g3"><span>Workshop</span></div>
+      <div class="g-tile g4"><span>Lab Dinner</span></div>
+      <div class="g-tile g5"><span>Graduation</span></div>
+      <div class="g-tile g6"><span>Lab Group Photo</span></div>
     </div>
-    <div class="note">※ 게시된 페이지는 외부 이미지를 불러올 수 없어 자리표시 타일로 대체했습니다. 실제 사진 파일을 올려주시면 갤러리에 반영해 드릴게요.</div>
+    <div class="note">Note: Published pages cannot load external images, so placeholder tiles are shown here. Send us real photos and we'll add them to the gallery.</div>
   </div>
 </section>
 
